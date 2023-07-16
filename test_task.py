@@ -33,7 +33,6 @@ def test_check_users_pets_data(driver):
     number_of_pets = int("".join(filter(str.isdigit, pet_info)))
 
     # Проверяем соответствие счетчика количества питомцев количеству строк с питомцами пользователя
-
     assert len(driver.find_elements(By.CSS_SELECTOR, 'tbody tr')) == number_of_pets
 
     image = driver.find_elements(By.CSS_SELECTOR, 'tr th[scope=row] img')
@@ -63,22 +62,12 @@ def test_check_users_pets_data(driver):
         assert 0 < len(breed[i].text) <= 255, 'Данные породы не соответствуют граничным значениям'
 
     # Проверка уникальности имен, возроста, породы
-    try:
-        assert len(name_list) == len(set(name_list))
-    except AssertionError:
-        return 'Есть не уникальные имена питомцев'
-    try:
-        assert len(age_list) == len(set(age_list))
-    except AssertionError:
-        return 'Есть не уникальные возраста питомцев'
-    try:
-        assert len(breed_list) == len(set(breed_list))
-    except AssertionError:
-        return 'Есть не уникальные породы питомцев'
+    assert len(name_list) == len(set(name_list)), 'Есть не уникальные имена питомцев'
+    assert len(age_list) == len(set(age_list)), 'Есть не уникальные возраста питомцев'
+    assert len(breed_list) == len(set(breed_list)), 'Есть не уникальные породы питомцев'
 
     # Проверка, что хотя бы у половины питомцев есть фото
-    try:
-        assert count_names / 2 <= float(num_photos_pets)
-    except AssertionError:
-        'Фотографии есть меньше чем у половины питомцев'
+    assert count_names / 2 >= float(num_photos_pets), 'Фотографии есть больше чем у половины питомцев'
+
+
 

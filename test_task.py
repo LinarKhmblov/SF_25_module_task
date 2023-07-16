@@ -4,7 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from settings import USER_EMAIL, USER_PASSWORD, USER_NAME
 
 
-
 def test_check_users_pets_data(driver):
     """Проверка списка питомцев пользователя"""
 
